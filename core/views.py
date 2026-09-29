@@ -19,26 +19,22 @@ def home(request):
 
 
 def products(request):
+    """Advertisement page: shows everything, no filtering.
+
+    ?market= and ?category= (from links on the home page) only pre-fill
+    the WhatsApp request form.
+    """
     products_qs = Product.objects.filter(is_available=True).select_related("category", "market")
 
-    category_slug = request.GET.get("category")
-    market_slug = request.GET.get("market")
-    query = request.GET.get("q")
-
-    if category_slug:
-        products_qs = products_qs.filter(category__slug=category_slug)
-    if market_slug:
-        products_qs = products_qs.filter(market__slug=market_slug)
-    if query:
-        products_qs = products_qs.filter(name__icontains=query)
+    market = Market.objects.filter(slug=request.GET.get("market")).first()
+    category = Category.objects.filter(slug=request.GET.get("category")).first()
 
     context = {
         "products": products_qs,
         "categories": Category.objects.filter(is_active=True),
         "markets": Market.objects.filter(is_active=True),
-        "selected_category": category_slug,
-        "selected_market": market_slug,
-        "query": query or "",
+        "prefill_market": market.name if market else "",
+        "prefill_category": category.name if category else "",
     }
     return render(request, "core/products.html", context)
 

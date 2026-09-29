@@ -17,30 +17,20 @@
 
       <div class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
         <a href="{% url 'core:home' %}" class="hover:text-hopblue-600">Home</a>
-        <a href="{% url 'core:products' %}" class="hover:text-hopblue-600">Order Now</a>
-        <a href="{% url 'orders:track_order' %}" class="hover:text-hopblue-600">Track Order</a>
+        <a href="{% url 'core:products' %}" class="hover:text-hopblue-600">Products</a>
         <a href="{% url 'core:about' %}" class="hover:text-hopblue-600">About</a>
         <a href="{% url 'core:contact' %}" class="hover:text-hopblue-600">Contact</a>
       </div>
 
       <div class="flex items-center gap-3">
-        <a href="{% url 'orders:cart_detail' %}" class="relative p-2 rounded-full hover:bg-gray-100" aria-label="Cart">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.836l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 1.687-3.463 2.53-6.75H5.106M7.5 14.25L5.106 5.272M7.5 14.25L4.5 18.75m14.25-4.5H21m-3 0V21m0-6.75a3 3 0 00-3 3v.008h6V17.25a3 3 0 00-3-3z"/>
-          </svg>
-          {% if cart_count > 0 %}
-          <span class="absolute -top-1 -right-1 bg-hopteal-500 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center">{{ cart_count }}</span>
-          {% endif %}
-        </a>
 
-        <a href="{% url 'core:products' %}" class="text-sm font-semibold bg-hopblue-600 text-white px-4 py-2 rounded-full hover:bg-hopblue-700 transition">Order Now</a>
+        <a href="{% url 'core:products' %}" class="text-sm font-semibold bg-hopblue-600 text-white px-4 py-2 rounded-full hover:bg-hopblue-700 transition">Products</a>
       </div>
     </div>
 
     <div class="md:hidden flex justify-between text-xs font-medium text-gray-600 pb-3 overflow-x-auto gap-4">
       <a href="{% url 'core:home' %}" class="whitespace-nowrap hover:text-hopblue-600">Home</a>
-      <a href="{% url 'core:products' %}" class="whitespace-nowrap hover:text-hopblue-600">Order Now</a>
-      <a href="{% url 'orders:track_order' %}" class="whitespace-nowrap hover:text-hopblue-600">Track</a>
+      <a href="{% url 'core:products' %}" class="whitespace-nowrap hover:text-hopblue-600">Products</a>
       <a href="{% url 'core:about' %}" class="whitespace-nowrap hover:text-hopblue-600">About</a>
       <a href="{% url 'core:contact' %}" class="whitespace-nowrap hover:text-hopblue-600">Contact</a>
     </div>
