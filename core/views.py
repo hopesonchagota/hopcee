@@ -1,5 +1,7 @@
 from django.contrib import messages
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from django.urls import reverse
 
 from catalog.models import Category, Market, Product
 
@@ -19,24 +21,39 @@ def home(request):
 
 
 def products(request):
-    """Advertisement page: shows everything, no filtering.
+    """Categories page: customers only see categories, then chat on WhatsApp.
 
     ?market= and ?category= (from links on the home page) only pre-fill
     the WhatsApp request form.
     """
-    products_qs = Product.objects.filter(is_available=True).select_related("category", "market")
-
     market = Market.objects.filter(slug=request.GET.get("market")).first()
     category = Category.objects.filter(slug=request.GET.get("category")).first()
 
     context = {
-        "products": products_qs,
         "categories": Category.objects.filter(is_active=True),
         "markets": Market.objects.filter(is_active=True),
         "prefill_market": market.name if market else "",
         "prefill_category": category.name if category else "",
     }
     return render(request, "core/products.html", context)
+
+
+def robots_txt(request):
+    sitemap_url = request.build_absolute_uri(reverse("core:sitemap"))
+    body = f"User-agent: *\nAllow: /\nDisallow: /admin/\nDisallow: /orders/\n\nSitemap: {sitemap_url}\n"
+    return HttpResponse(body, content_type="text/plain")
+
+
+def sitemap_xml(request):
+    pages = ["core:home", "core:products", "core:about", "core:contact"]
+    urls = "".join(
+        f"<url><loc>{request.build_absolute_uri(reverse(name))}</loc></url>" for name in pages
+    )
+    xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + urls + "</urlset>"
+    )
+    return HttpResponse(xml, content_type="application/xml")
 
 
 def about(request):

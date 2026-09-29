@@ -171,6 +171,11 @@ HOPCEE = {
     "REG_NUMBER": os.getenv("HOPCEE_REG_NUMBER", "Available on Request"),
 }
 
+# --- Search engines ---
+# Paste the token from Google Search Console (HTML tag method) into this
+# environment variable. Leave empty until you have it.
+GOOGLE_SITE_VERIFICATION = os.getenv("GOOGLE_SITE_VERIFICATION", "").strip()
+
 # --- WhatsApp Cloud API ---
 WHATSAPP_CLOUD_API_TOKEN = os.getenv("WHATSAPP_CLOUD_API_TOKEN", "")
 WHATSAPP_CLOUD_API_PHONE_ID = os.getenv("WHATSAPP_CLOUD_API_PHONE_ID", "")

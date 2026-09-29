@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Products{% endblock %}
+{% block title %}Categories{% endblock %}
 {% block content %}
 <section class="max-w-7xl mx-auto px-4 py-10">
   <div class="mb-8">
@@ -9,9 +9,9 @@
 
   <!-- WhatsApp request box -->
   <div class="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm mb-10">
-    <h2 class="font-display font-semibold text-lg mb-3">Request a product</h2>
+    <h2 class="font-display font-semibold text-lg mb-3">Request an item</h2>
     <div class="grid sm:grid-cols-3 gap-3">
-      <input id="req-product" type="text" placeholder="Product (e.g. Irish potato)" class="form-input">
+      <input id="req-product" type="text" placeholder="What do you need? (e.g. Irish potato)" class="form-input">
       <input id="req-market" type="text" list="market-list" value="{{ prefill_market }}" placeholder="Market (e.g. Mitundu Market)" class="form-input">
       <input id="req-category" type="text" list="category-list" value="{{ prefill_category }}" placeholder="Category (e.g. Rice)" class="form-input">
     </div>
@@ -22,35 +22,25 @@
     </button>
   </div>
 
-  <!-- Category options -->
-  {% if categories %}
-  <div class="flex flex-wrap gap-2 mb-8">
-    {% for c in categories %}
-    <button type="button" onclick="pick('', '', '{{ c.name|escapejs }}')" class="px-4 py-2 rounded-full bg-gray-50 border border-gray-200 text-sm font-medium hover:bg-hopblue-50">{{ c.name }}</button>
-    {% endfor %}
-  </div>
-  {% endif %}
-
-  <!-- Products (advert only, no cart) -->
+  <!-- Categories only -->
   <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    {% for product in products %}
+    {% for c in categories %}
     <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden flex flex-col">
       <div class="h-44 overflow-hidden">
-        <img src="{{ product.image_url|default:'/static/img/placeholders/generic.svg' }}" alt="{{ product.name }}" class="w-full h-full object-cover">
+        <img src="{{ c.image_url|default:'/static/img/placeholders/basket.svg' }}" alt="{{ c.name }}" class="w-full h-full object-cover">
       </div>
       <div class="p-5 flex-1 flex flex-col">
-        <span class="text-xs font-semibold text-hopteal-600 uppercase">{{ product.category.name }} · {{ product.market.name }}</span>
-        <h3 class="font-display font-semibold text-lg mt-1">{{ product.name }}</h3>
-        <p class="text-sm text-gray-500 mt-1 flex-1">{{ product.description|default:"Sourced fresh on request." }}</p>
+        <h3 class="font-display font-semibold text-lg">{{ c.name }}</h3>
+        <p class="text-sm text-gray-500 mt-1 flex-1">{{ c.description|default:"Available on request. Chat with us to confirm." }}</p>
         <button type="button"
-                onclick="pick('{{ product.name|escapejs }}', '{{ product.market.name|escapejs }}', '{{ product.category.name|escapejs }}'); sendRequest()"
+                onclick="pick('', '', '{{ c.name|escapejs }}'); sendRequest()"
                 class="mt-4 w-full bg-green-500 hover:bg-green-600 text-white font-semibold text-sm py-2 rounded-lg">
           Ask on WhatsApp
         </button>
       </div>
     </div>
     {% empty %}
-    <p class="col-span-3 text-center text-gray-500 py-10">Products coming soon. Use the box above to tell us what you need.</p>
+    <p class="col-span-3 text-center text-gray-500 py-10">Categories coming soon. Use the box above to tell us what you need.</p>
     {% endfor %}
   </div>
 </section>
@@ -61,14 +51,13 @@
     if (product) document.getElementById("req-product").value = product;
     if (market) document.getElementById("req-market").value = market;
     if (category) document.getElementById("req-category").value = category;
-    if (!product) window.scrollTo({ top: 0, behavior: "smooth" });
   }
   function sendRequest() {
     var product = document.getElementById("req-product").value.trim();
     var market = document.getElementById("req-market").value.trim();
     var category = document.getElementById("req-category").value.trim();
     var msg = "Hi Hopcee, I am looking for:";
-    if (product) msg += "\nProduct: " + product;
+    if (product) msg += "\nItem: " + product;
     if (market) msg += "\nMarket: " + market;
     if (category) msg += "\nCategory: " + category;
     msg += "\nIs it available?";
