@@ -9,9 +9,8 @@
 
   <!-- WhatsApp request box -->
   <div class="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm mb-10">
-    <h2 class="font-display font-semibold text-lg mb-3">Request an item</h2>
-    <div class="grid sm:grid-cols-3 gap-3">
-      <input id="req-product" type="text" placeholder="What do you need? (e.g. Irish potato)" class="form-input">
+    <h2 class="font-display font-semibold text-lg mb-3">Make a request</h2>
+    <div class="grid sm:grid-cols-2 gap-3">
       <input id="req-market" type="text" list="market-list" value="{{ prefill_market }}" placeholder="Market (e.g. Mitundu Market)" class="form-input">
       <input id="req-category" type="text" list="category-list" value="{{ prefill_category }}" placeholder="Category (e.g. Rice)" class="form-input">
     </div>
@@ -48,16 +47,13 @@
 <script>
   var WA_NUMBER = "{{ HOPCEE.WHATSAPP_NUMBER }}".replace(/[^0-9]/g, "");
   function pick(product, market, category) {
-    if (product) document.getElementById("req-product").value = product;
     if (market) document.getElementById("req-market").value = market;
     if (category) document.getElementById("req-category").value = category;
   }
   function sendRequest() {
-    var product = document.getElementById("req-product").value.trim();
     var market = document.getElementById("req-market").value.trim();
     var category = document.getElementById("req-category").value.trim();
-    var msg = "Hi Hopcee, I am looking for:";
-    if (product) msg += "\nItem: " + product;
+    var msg = "Hi Hopcee, I would like to make a request:";
     if (market) msg += "\nMarket: " + market;
     if (category) msg += "\nCategory: " + category;
     msg += "\nIs it available?";
