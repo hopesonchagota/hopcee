@@ -34,7 +34,8 @@ ALLOWED_HOSTS = [
     if h.strip()
 ]
 
-# Vercel deployment hostname
+# Vercel deployment hostnames (production domain + per-deployment URLs)
+ALLOWED_HOSTS.append(".vercel.app")
 VERCEL_URL = os.getenv("VERCEL_URL")
 if VERCEL_URL:
     ALLOWED_HOSTS.append(VERCEL_URL)
@@ -44,11 +45,13 @@ RENDER_EXTERNAL_HOSTNAME = os.getenv("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
-CSRF_TRUSTED_ORIGINS = [
-    f"https://{h}"
-    for h in ALLOWED_HOSTS
-    if h not in ("127.0.0.1", "localhost")
-]
+CSRF_TRUSTED_ORIGINS = []
+for _h in ALLOWED_HOSTS:
+    if _h in ("127.0.0.1", "localhost"):
+        continue
+    CSRF_TRUSTED_ORIGINS.append(
+        f"https://*{_h}" if _h.startswith(".") else f"https://{_h}"
+    )
 
 # --- Applications ---
 INSTALLED_APPS = [
@@ -138,8 +141,11 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
+# Vercel has no build step for collectstatic, so WhiteNoise serves files
+# straight from the static finders and we avoid the manifest storage.
+WHITENOISE_USE_FINDERS = True
 STORAGES = {
-    "staticfiles": {"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"},
+    "staticfiles": {"BACKEND": "whitenoise.storage.CompressedStaticFilesStorage"},
     "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
 }
 
