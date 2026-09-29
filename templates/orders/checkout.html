@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block title %}Submit Order Request{% endblock %}
+{% block content %}
+<section class="max-w-4xl mx-auto px-4 py-10">
+  <h1 class="font-display text-2xl sm:text-3xl font-bold mb-6">Order Details — {{ market.name }}</h1>
+
+  <div class="grid md:grid-cols-5 gap-8">
+    <form method="post" class="md:col-span-3 bg-white border border-gray-100 rounded-2xl shadow-sm p-6 space-y-4">
+      {% csrf_token %}
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">{{ form.customer_name.label }}</label>
+        {{ form.customer_name }}
+        {% for error in form.customer_name.errors %}<p class="text-red-600 text-xs mt-1">{{ error }}</p>{% endfor %}
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">{{ form.delivery_phone.label }}</label>
+        {{ form.delivery_phone }}
+        <p class="text-xs text-gray-400 mt-1">{{ form.delivery_phone.help_text }}</p>
+        {% for error in form.delivery_phone.errors %}<p class="text-red-600 text-xs mt-1">{{ error }}</p>{% endfor %}
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">{{ form.delivery_date.label }}</label>
+        {{ form.delivery_date }}
+        {% for error in form.delivery_date.errors %}<p class="text-red-600 text-xs mt-1">{{ error }}</p>{% endfor %}
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">{{ form.delivery_point.label }}</label>
+        {{ form.delivery_point }}
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">{{ form.notes.label }}</label>
+        {{ form.notes }}
+      </div>
+      <button type="submit" class="w-full bg-hopteal-500 hover:bg-hopteal-600 text-white font-semibold py-3 rounded-full">
+        Submit Order Request
+      </button>
+      <p class="text-xs text-gray-400 text-center">No online payment is required. After you submit, we'll open WhatsApp with your order details pre-filled — just hit send and Hopcee will confirm availability, sourcing and the final amount with you directly.</p>
+    </form>
+
+    <div class="md:col-span-2 bg-white border border-gray-100 rounded-2xl shadow-sm p-6 h-fit">
+      <h2 class="font-display font-semibold mb-4">Order Summary</h2>
+      <ul class="space-y-2 mb-4 text-sm">
+        {% for item in cart.items.all %}
+        <li class="flex justify-between">
+          <span>{{ item.quantity }} x {{ item.product.name }}</span>
+          <span class="text-xs text-gray-400">{{ item.product.get_unit_display }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+      <div class="mt-4 flex items-start gap-2 bg-amber-50 border border-amber-200 rounded-xl p-3">
+        <svg class="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <p class="text-xs text-amber-800"><span class="font-semibold">Current market price — confirmed by Hopcee after purchase.</span> No online payment is required at any point.</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

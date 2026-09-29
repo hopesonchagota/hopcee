@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}About Us{% endblock %}
+{% block content %}
+<section class="max-w-5xl mx-auto px-4 py-14">
+  <div class="text-center max-w-2xl mx-auto mb-12">
+    <span class="text-hopteal-600 font-semibold text-sm uppercase tracking-wide">About Hopcee</span>
+    <h1 class="font-display text-2xl sm:text-3xl font-bold mt-2">Buy at Ordering Price with Just Half Way Transport</h1>
+    <p class="text-gray-500 mt-4">Hopcee Bulk Ordering Service was built by and for LUANAR Bunda Campus students. We travel to Mitundu Market and Town so you can buy Irish Potato, Electrical Equipment, Soya Pieces/Thumba, Mafuta, Bonya small fish and many other goods at the real ordering price — you only ever split the transport cost.</p>
+  </div>
+
+  <div class="grid sm:grid-cols-3 gap-6 mb-14">
+    <div class="bg-white border border-gray-100 rounded-2xl p-6 text-center shadow-sm">
+      <p class="font-display text-3xl font-bold text-hopblue-700 mb-1">2</p>
+      <p class="text-sm text-gray-500">Markets served: Mitundu &amp; Town</p>
+    </div>
+    <div class="bg-white border border-gray-100 rounded-2xl p-6 text-center shadow-sm">
+      <p class="font-display text-3xl font-bold text-hopblue-700 mb-1">Half</p>
+      <p class="text-sm text-gray-500">Transport fee — never more</p>
+    </div>
+    <div class="bg-white border border-gray-100 rounded-2xl p-6 text-center shadow-sm">
+      <p class="font-display text-3xl font-bold text-hopblue-700 mb-1">100%</p>
+      <p class="text-sm text-gray-500">Money-safe, tracked ledger</p>
+    </div>
+  </div>
+
+  <div class="bg-gradient-to-br from-hopblue-700 to-hopteal-600 text-white rounded-3xl p-8 sm:p-10">
+    <h2 class="font-display text-xl font-bold mb-4">Our Trust Guarantee</h2>
+    <ul class="space-y-3 text-sm text-white/90">
+      <li>• Located at {{ HOPCEE.LOCATION }} — always reachable, always accountable.</li>
+      <li>• Registration Number {{ HOPCEE.REG_NUMBER }} — Your Money is Safe.</li>
+      <li>• Student-Friendly, Reliable, Trusted by LUANAR Students.</li>
+      <li>• Every order tracked from Pending → Bought → In Transit → Delivered, with WhatsApp updates.</li>
+    </ul>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Track Order{% endblock %}
+{% block content %}
+<section class="max-w-3xl mx-auto px-4 py-10">
+  <h1 class="font-display text-2xl sm:text-3xl font-bold mb-2">Track Your Order</h1>
+  <p class="text-gray-500 mb-6">Enter your order code and the phone number used when ordering.</p>
+
+  <form method="post" class="bg-white border border-gray-100 rounded-2xl shadow-sm p-6 grid sm:grid-cols-2 gap-4 mb-8">
+    {% csrf_token %}
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1">{{ form.order_code.label }}</label>
+      {{ form.order_code }}
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1">{{ form.phone_number.label }}</label>
+      {{ form.phone_number }}
+    </div>
+    <button type="submit" class="sm:col-span-2 bg-hopblue-600 hover:bg-hopblue-700 text-white font-semibold py-3 rounded-full">Track Order</button>
+  </form>
+
+  {% if order %}
+  <div class="bg-white border border-gray-100 rounded-2xl shadow-sm p-6">
+    <div class="flex justify-between items-start mb-6">
+      <div>
+        <p class="font-mono font-bold text-hopblue-700 text-lg">{{ order.order_code }}</p>
+        <p class="text-sm text-gray-500">{{ order.market.name }} · Delivery {{ order.delivery_date }} · {{ order.delivery_point }}</p>
+      </div>
+      <span class="text-xs font-semibold px-3 py-1 rounded-full bg-hopblue-50 text-hopblue-700">{{ order.get_status_display }}</span>
+    </div>
+
+    <div class="flex items-center justify-between relative mb-8">
+      <div class="absolute top-4 left-0 right-0 h-1 bg-gray-100 z-0"></div>
+      {% for step in order.status_steps %}
+      <div class="relative z-10 flex flex-col items-center flex-1">
+        <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold
+          {% if step.reached %}bg-hopteal-500 text-white{% else %}bg-gray-200 text-gray-400{% endif %}
+          {% if step.current %}ring-4 ring-hopteal-100{% endif %}">
+          {% if step.reached %}✓{% else %}{{ forloop.counter }}{% endif %}
+        </div>
+        <p class="text-xs mt-2 text-center {% if step.current %}font-bold text-hopblue-700{% else %}text-gray-500{% endif %}">{{ step.label }}</p>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="border-t border-gray-100 pt-4">
+      <h3 class="font-semibold text-sm mb-2">Items</h3>
+      <ul class="text-sm space-y-1 text-gray-600">
+        {% for item in order.items.all %}
+        <li class="flex justify-between"><span>{{ item.quantity }} x {{ item.product_name }}</span><span class="text-xs text-gray-400 italic">Confirmed after sourcing</span></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% elif searched %}
+  <p class="text-center text-gray-500">No order found — please double-check your details, or WhatsApp us for help.</p>
+  {% endif %}
+</section>
+{% endblock %}

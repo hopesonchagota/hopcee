@@ -1,0 +1,48 @@
+<nav class="bg-white/90 backdrop-blur sticky top-0 z-50 border-b border-gray-100 shadow-sm">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex items-center justify-between h-16">
+      <a href="{% url 'core:home' %}" class="flex items-center gap-2 font-display font-extrabold text-lg">
+        <span class="w-9 h-9 rounded-lg bg-gradient-to-br from-hopblue-600 to-hopteal-500 flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="w-6 h-6" fill="none">
+            <rect x="4" y="22" width="30" height="18" rx="2" fill="#ffffff"/>
+            <path d="M34 28h12l10 8v4h-22z" fill="#e5f6f3"/>
+            <circle cx="16" cy="44" r="5" fill="#0f4a9c"/>
+            <circle cx="44" cy="44" r="5" fill="#0f4a9c"/>
+            <circle cx="16" cy="44" r="2" fill="#ffffff"/>
+            <circle cx="44" cy="44" r="2" fill="#ffffff"/>
+          </svg>
+        </span>
+        <span class="text-hopblue-700">Hopcee</span>
+      </a>
+
+      <div class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
+        <a href="{% url 'core:home' %}" class="hover:text-hopblue-600">Home</a>
+        <a href="{% url 'core:products' %}" class="hover:text-hopblue-600">Order Now</a>
+        <a href="{% url 'orders:track_order' %}" class="hover:text-hopblue-600">Track Order</a>
+        <a href="{% url 'core:about' %}" class="hover:text-hopblue-600">About</a>
+        <a href="{% url 'core:contact' %}" class="hover:text-hopblue-600">Contact</a>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="{% url 'orders:cart_detail' %}" class="relative p-2 rounded-full hover:bg-gray-100" aria-label="Cart">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.836l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 1.687-3.463 2.53-6.75H5.106M7.5 14.25L5.106 5.272M7.5 14.25L4.5 18.75m14.25-4.5H21m-3 0V21m0-6.75a3 3 0 00-3 3v.008h6V17.25a3 3 0 00-3-3z"/>
+          </svg>
+          {% if cart_count > 0 %}
+          <span class="absolute -top-1 -right-1 bg-hopteal-500 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center">{{ cart_count }}</span>
+          {% endif %}
+        </a>
+
+        <a href="{% url 'core:products' %}" class="text-sm font-semibold bg-hopblue-600 text-white px-4 py-2 rounded-full hover:bg-hopblue-700 transition">Order Now</a>
+      </div>
+    </div>
+
+    <div class="md:hidden flex justify-between text-xs font-medium text-gray-600 pb-3 overflow-x-auto gap-4">
+      <a href="{% url 'core:home' %}" class="whitespace-nowrap hover:text-hopblue-600">Home</a>
+      <a href="{% url 'core:products' %}" class="whitespace-nowrap hover:text-hopblue-600">Order Now</a>
+      <a href="{% url 'orders:track_order' %}" class="whitespace-nowrap hover:text-hopblue-600">Track</a>
+      <a href="{% url 'core:about' %}" class="whitespace-nowrap hover:text-hopblue-600">About</a>
+      <a href="{% url 'core:contact' %}" class="whitespace-nowrap hover:text-hopblue-600">Contact</a>
+    </div>
+  </div>
+</nav>
