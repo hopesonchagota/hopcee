@@ -10,7 +10,7 @@
             <circle cx="44" cy="44" r="5" fill="#0f4a9c"/>
           </svg>
         </span>
-        <span class="font-display font-bold text-white text-lg">Hopcee</span>
+        <span class="font-display font-bold text-white text-lg">{{ HOPCEE.NAME }}</span>
       </div>
       <p class="text-sm text-gray-400">{{ HOPCEE.SLOGAN }}. Based at {{ HOPCEE.LOCATION }}, serving LUANAR students with trusted bulk orders from Mitundu Market and Town.</p>
     </div>
@@ -20,7 +20,7 @@
       <ul class="space-y-2 text-sm">
         <li><a href="{% url 'core:products' %}" class="hover:text-hopteal-400">Order Now</a></li>
         <li><a href="{% url 'orders:track_order' %}" class="hover:text-hopteal-400">Track My Order</a></li>
-        <li><a href="{% url 'core:about' %}" class="hover:text-hopteal-400">About Hopcee</a></li>
+        <li><a href="{% url 'core:about' %}" class="hover:text-hopteal-400">About Us</a></li>
         <li><a href="{% url 'core:contact' %}" class="hover:text-hopteal-400">Contact Us</a></li>
         <li><a href="/admin/" class="hover:text-hopteal-400">Admin Dashboard</a></li>
       </ul>

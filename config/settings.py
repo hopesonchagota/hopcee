@@ -1,5 +1,5 @@
 """
-Django settings for the Hopcee Bulk Ordering Service project.
+Django settings for the Hopcee Ordering Services project.
 
 Hopcee helps LUANAR Bunda Campus students buy goods (Irish Potato,
 Electrical Equipment, Soya Pieces/Thumba, Mafuta, Bonya small fish,
@@ -163,7 +163,7 @@ MESSAGE_TAGS = {
 
 # --- Hopcee business config (also exposed to every template) ---
 HOPCEE = {
-    "NAME": "Hopcee Bulk Ordering Service",
+    "NAME": "Hopcee Ordering Services",
     "SLOGAN": "Buy at Ordering Price with Just Half Way Transport",
     "LOCATION": "LUANAR Bunda Campus",
     "WHATSAPP_NUMBER": os.getenv("HOPCEE_WHATSAPP_NUMBER", "+265988609202"),
