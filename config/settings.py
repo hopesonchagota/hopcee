@@ -26,14 +26,29 @@ SECRET_KEY = os.getenv("SECRET_KEY", "dev-insecure-secret-key-change-me")
 DEBUG = env_bool("DEBUG", True)
 
 ALLOWED_HOSTS = [
-    h.strip() for h in os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",") if h.strip()
+    h.strip()
+    for h in os.getenv(
+        "ALLOWED_HOSTS",
+        "127.0.0.1,localhost",
+    ).split(",")
+    if h.strip()
 ]
-# Render/Railway/Heroku style: allow the platform-assigned hostname too.
+
+# Vercel deployment hostname
+VERCEL_URL = os.getenv("VERCEL_URL")
+if VERCEL_URL:
+    ALLOWED_HOSTS.append(VERCEL_URL)
+
+# Render/Railway/Heroku-style platform hostname
 RENDER_EXTERNAL_HOSTNAME = os.getenv("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
-CSRF_TRUSTED_ORIGINS = [f"https://{h}" for h in ALLOWED_HOSTS if h not in ("127.0.0.1", "localhost")]
+CSRF_TRUSTED_ORIGINS = [
+    f"https://{h}"
+    for h in ALLOWED_HOSTS
+    if h not in ("127.0.0.1", "localhost")
+]
 
 # --- Applications ---
 INSTALLED_APPS = [
